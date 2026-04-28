@@ -417,16 +417,18 @@ window.addEventListener('unhandledrejection', function(e) {
   }
   function replaceMediaOn(node) {
     if (!node || !node.getAttribute) return false;
-    var changed = false;
     var src = node.getAttribute('src');
     var srcset = node.getAttribute('srcset');
     var rep = findReplacement(src) || findReplacement(srcset);
     if (rep) {
-      if (src) node.setAttribute('src', rep);
-      if (srcset) node.setAttribute('srcset', rep);
-      changed = true;
+      // Always set src to the replacement, and strip srcset/sizes so the browser
+      // uses src directly (a single bare URL in srcset is not a valid descriptor).
+      node.setAttribute('src', rep);
+      if (srcset) node.removeAttribute('srcset');
+      if (node.hasAttribute && node.hasAttribute('sizes')) node.removeAttribute('sizes');
+      return true;
     }
-    return changed;
+    return false;
   }
   function sweepMedia(root) {
     var anyVideoChanged = false;
