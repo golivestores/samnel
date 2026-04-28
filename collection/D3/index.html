@@ -182,9 +182,14 @@
     background: var(--brand-pink) !important;
     border-color: var(--brand-pink) !important;
   }
-  /* Showroom video: remove the 0.7 opacity that lets the blue bg bleed through */
+  /* Showroom video: full opacity + warm filter to neutralize the cool/blue cast */
   .banner-showroom[data-v-cc15621c] .video[data-v-cc15621c] {
     opacity: 1 !important;
+    filter: saturate(1.25) sepia(0.18) brightness(1.08) hue-rotate(-8deg) !important;
+    mix-blend-mode: normal !important;
+  }
+  .banner-showroom[data-v-cc15621c] .background[data-v-cc15621c] {
+    background: #0a0e15 !important;  /* dark neutral behind video instead of brand blue */
   }
   /* Showroom banner section -> brand blue, with circle accents inside */
   .banner-showroom[data-v-cc15621c] { background: var(--brand-blue) !important; }
