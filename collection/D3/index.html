@@ -182,6 +182,13 @@
     background: var(--brand-pink) !important;
     border-color: var(--brand-pink) !important;
   }
+  /* Mobile-only: shrink CLIENT STORIES testimonial text (desktop stays at 6.4rem) */
+  @media (max-width: 600px) {
+    .reviews[data-v-86b0a9d7] .blockquote[data-v-86b0a9d7] {
+      font-size: 2.4rem !important;
+      min-height: 0 !important;
+    }
+  }
   /* Showroom video: remove the 0.7 opacity that lets the blue bg bleed through */
   .banner-showroom[data-v-cc15621c] .video[data-v-cc15621c] {
     opacity: 1 !important;
