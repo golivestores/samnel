@@ -34,17 +34,22 @@
     padding: 18% !important;
     box-sizing: border-box !important;
   }
-  /* Manifesto banner-cta: full-width + reduced height */
+  /* Manifesto banner-cta: full-width (no cream margin around) */
   .banner-cta[data-v-f377522f] { margin: 0 !important; }
   .banner-cta[data-v-f377522f] .container[data-v-f377522f] {
     margin: 0 !important;
     border: none !important;
-    padding-top: 4rem !important;
-    padding-bottom: 0 !important;
   }
-  /* Pull the bottom of the section up so it sits ~300px tighter against next section */
-  .banner-cta[data-v-f377522f] {
-    margin-bottom: -200px !important;
+  /* Desktop only — aggressive height compression. On mobile we keep normal padding
+     so the next section (team photo) doesn't bleed through behind the text. */
+  @media (min-width: 601px) {
+    .banner-cta[data-v-f377522f] .container[data-v-f377522f] {
+      padding-top: 4rem !important;
+      padding-bottom: 0 !important;
+    }
+    .banner-cta[data-v-f377522f] {
+      margin-bottom: -200px !important;
+    }
   }
   /* Move the orange decorative lines (both paths) 1200px to the right */
   .banner-cta[data-v-f377522f] .banner-cta-svg[data-v-f377522f] {
