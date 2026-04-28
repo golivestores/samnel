@@ -309,7 +309,7 @@
     font-style: italic;
     font-weight: 600;
     letter-spacing: -.01em;
-    color: #fff;
+    color: var(--brand-blue);
     text-decoration: none;
     position: relative;
     padding-bottom: .25rem;
@@ -423,6 +423,21 @@ window.addEventListener('unhandledrejection', function(e) {
       // Insert as the first child so it sits behind .container/.content (which have z-index:1)
       sec.insertBefore(box, sec.firstChild);
     }
+  }
+
+  function fixBlock5Image(root) {
+    // Block #5 in the reviews slider has no portrait image — inject one matching block #3.
+    var blocks = (root || document).querySelectorAll('.reviews[data-v-86b0a9d7] .block[data-v-86b0a9d7]');
+    if (blocks.length < 5) return;
+    var b5 = blocks[4];
+    var content = b5.querySelector('.content');
+    if (!content || content.querySelector('img')) return;
+    var img = document.createElement('img');
+    img.className = 'base-image';
+    img.setAttribute('data-v-86b0a9d7', '');
+    img.alt = '';
+    img.src = L('保健品代言人女.png');
+    content.insertBefore(img, content.firstChild);
   }
 
   function replaceGoogleWithSocial(root) {
@@ -726,9 +741,9 @@ window.addEventListener('unhandledrejection', function(e) {
 
     // Testimonials
     'Fluid Glass are great. We have finalised a few projects with them in London and abroad, and always had very professional, punctual service from them. Would recommend to all other professionals and clients.': 'Samnel is exceptional. I have recommended their calcifediol formula to clients across the UK and abroad — always professional, science-backed service. Would recommend to anyone serious about vitamin D.',
-    'The customer service provided by Fluid Glass is about the best I have encountered in the industry.': 'The customer care from Samnel is among the best I have encountered in the wellness industry.',
-    'The service from Fluid Glass has been excellent. Before, during and after installation of our glazing the team demonstrated professionalism and a high standard of execution. We would have no hesitation in recommending Fluid Glass.': 'The service from Samnel has been excellent. From the first dose to long-term use, the team consistently demonstrated professionalism and a high standard of care. We would have no hesitation in recommending Samnel.',
-    'Unrivaled customer service, cutting edge design and quality. Fluid Glass is firmly lodged in our list of preferred suppliers of glazing products.': 'Unrivaled care, cutting-edge science, and quality. Samnel is firmly on our list of preferred wellness brands.',
+    'The customer service provided by Fluid Glass is about the best I have encountered in the industry.': 'The customer care from Samnel is among the best I have encountered in the wellness space — quick responses, transparent sourcing, and consistent quality across every batch we have ordered to date.',
+    'The service from Fluid Glass has been excellent. Before, during and after installation of our glazing the team demonstrated professionalism and a high standard of execution. We would have no hesitation in recommending Fluid Glass.': 'The service from Samnel has been excellent. From the first dose to long-term use, the team showed real professionalism, transparency, and care for customers. We would recommend Samnel without hesitation.',
+    'Unrivaled customer service, cutting edge design and quality. Fluid Glass is firmly lodged in our list of preferred suppliers of glazing products.': 'Unrivaled care, cutting-edge science, and quality. Samnel sits firmly on our list of preferred wellness brands — a rare blend of clinical rigor and genuinely consumer-focused service that is hard to match.',
     'What a superb company! Our experience has been superb. They offer a superb service, selection and pricing. They also have a new showroom where clients can visit which is really well laid out and comprehensive.': 'What a superb company! Our experience has been outstanding. They offer a great range, transparent pricing, and clearly documented ingredient sourcing — easy to trust.',
 
     // Reviewer roles
@@ -840,6 +855,7 @@ window.addEventListener('unhandledrejection', function(e) {
     paintShowroomCircles(document);
     paintBannerCircles(document);
     replaceGoogleWithSocial(document);
+    fixBlock5Image(document);
     if (document.title && document.title.indexOf('Fluid Glass') !== -1) {
       document.title = 'Samnel — Pursue innovation · Pursue health';
     }
