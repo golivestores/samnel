@@ -514,6 +514,17 @@ window.addEventListener('unhandledrejection', function(e) {
     }
   }
 
+  function pruneExtraProductBlocks(root) {
+    // Physically remove the 3rd+ product collection blocks so they can't possibly
+    // contribute to layout (CSS display:none was being inconsistently honored on
+    // mobile Safari — the empty aspect-ratio box was leaving a ~530px gap).
+    var blocks = (root || document).querySelectorAll('.product-collection[data-v-85542e5f] .blocks[data-v-85542e5f] > .block[data-v-85542e5f]');
+    for (var i = blocks.length - 1; i >= 2; i--) {
+      var b = blocks[i];
+      if (b.parentNode) b.parentNode.removeChild(b);
+    }
+  }
+
   function paintBannerCircles(root) {
     var conts = (root || document).querySelectorAll('.banner-cta[data-v-f377522f] .container[data-v-f377522f]');
     for (var i = 0; i < conts.length; i++) {
@@ -900,6 +911,7 @@ window.addEventListener('unhandledrejection', function(e) {
     paintBannerCircles(document);
     replaceGoogleWithSocial(document);
     fixBlock5Image(document);
+    pruneExtraProductBlocks(document);
     if (document.title && document.title.indexOf('Fluid Glass') !== -1) {
       document.title = 'Samnel — Pursue innovation · Pursue health';
     }
