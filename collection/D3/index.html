@@ -239,13 +239,13 @@
   }
   @media (max-width: 600px) {
     /* Mobile: stack the two visible product blocks full-width vertically.
-       Original Nuxt CSS uses a 2-column grid here which makes both blocks too narrow;
-       force single-column so each block (and its image) gets the full width. */
+       Original Nuxt CSS uses a 2-column grid + staggered margin-top:8.4rem on nth-child(2),
+       which on a single column leaves a huge cream gap. Nuke it. */
     .blocks[data-v-85542e5f] {
       grid-template-columns: 1fr !important;
+      gap: 1rem !important;
     }
-    .block[data-v-85542e5f]:first-child,
-    .block[data-v-85542e5f]:nth-child(2) {
+    .block[data-v-85542e5f] {
       grid-column: 1 / -1 !important;
       margin-top: 0 !important;
     }
