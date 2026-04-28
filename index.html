@@ -182,14 +182,9 @@
     background: var(--brand-pink) !important;
     border-color: var(--brand-pink) !important;
   }
-  /* Showroom video: full opacity + warm filter to neutralize the cool/blue cast */
+  /* Showroom video: remove the 0.7 opacity that lets the blue bg bleed through */
   .banner-showroom[data-v-cc15621c] .video[data-v-cc15621c] {
     opacity: 1 !important;
-    filter: saturate(1.25) sepia(0.18) brightness(1.08) hue-rotate(-8deg) !important;
-    mix-blend-mode: normal !important;
-  }
-  .banner-showroom[data-v-cc15621c] .background[data-v-cc15621c] {
-    background: #0a0e15 !important;  /* dark neutral behind video instead of brand blue */
   }
   /* Showroom banner section -> brand blue, with circle accents inside */
   .banner-showroom[data-v-cc15621c] { background: var(--brand-blue) !important; }
@@ -243,11 +238,16 @@
     margin-top: 0 !important;
   }
   @media (max-width: 600px) {
-    .block[data-v-85542e5f]:first-child {
-      grid-column: 1 / 4 !important;
+    /* Mobile: stack the two visible product blocks full-width vertically.
+       Original Nuxt CSS uses a 2-column grid here which makes both blocks too narrow;
+       force single-column so each block (and its image) gets the full width. */
+    .blocks[data-v-85542e5f] {
+      grid-template-columns: 1fr !important;
     }
+    .block[data-v-85542e5f]:first-child,
     .block[data-v-85542e5f]:nth-child(2) {
-      grid-column: 4 / 7 !important;
+      grid-column: 1 / -1 !important;
+      margin-top: 0 !important;
     }
   }
   /* Social icons — replaces the Google review score link */
