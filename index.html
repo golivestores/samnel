@@ -283,6 +283,16 @@
       width: 100% !important;
       grid-column: auto !important;
       margin-top: 0 !important;
+      /* Drop the aspect-ratio reservation so block sizes to its image content,
+         no big cream gap above/below the image */
+      aspect-ratio: auto !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+    .block[data-v-85542e5f] img {
+      width: 100% !important;
+      height: auto !important;
+      display: block !important;
     }
   }
   /* Social icons — replaces the Google review score link */
