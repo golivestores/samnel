@@ -34,6 +34,93 @@
     padding: 18% !important;
     box-sizing: border-box !important;
   }
+  /* Manifesto banner-cta: full-width (no surrounding cream margin) */
+  .banner-cta[data-v-f377522f] { margin: 0 !important; }
+  .banner-cta[data-v-f377522f] .container[data-v-f377522f] {
+    margin: 0 !important;
+    border: none !important;
+  }
+
+  /* Animated orange circles on the right side of the manifesto banner */
+  .ch-banner-circles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .ch-banner-circles .ch-bc {
+    position: absolute;
+    border-radius: 50%;
+  }
+  .ch-banner-circles .ch-bc.c1 {
+    width: 22rem; height: 22rem;
+    right: 6%; top: 8%;
+    background: radial-gradient(circle, rgba(242,145,60,0.32) 0%, rgba(242,145,60,0) 70%);
+    animation: ch-bc-float 9s ease-in-out infinite;
+  }
+  .ch-banner-circles .ch-bc.c2 {
+    width: 9rem; height: 9rem;
+    right: 24%; top: 30%;
+    border: 4px solid rgba(248,182,121,0.7);
+    animation: ch-bc-pulse 5s ease-in-out infinite;
+  }
+  .ch-banner-circles .ch-bc.c3 {
+    width: 5rem; height: 5rem;
+    right: 4%; top: 58%;
+    background: rgba(252,208,168,0.55);
+    animation: ch-bc-float 6.5s ease-in-out infinite reverse;
+    animation-delay: 0.6s;
+  }
+  .ch-banner-circles .ch-bc.c4 {
+    width: 13rem; height: 13rem;
+    right: 30%; top: 65%;
+    border: 3px solid rgba(242,145,60,0.55);
+    animation: ch-bc-pulse 7s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+  .ch-banner-circles .ch-bc.c5 {
+    width: 3rem; height: 3rem;
+    right: 16%; top: 78%;
+    background: rgba(215,113,39,0.85);
+    animation: ch-bc-blink 4s ease-in-out infinite;
+  }
+  .ch-banner-circles .ch-bc.c6 {
+    width: 7rem; height: 7rem;
+    right: 38%; top: 14%;
+    background: rgba(252,208,168,0.35);
+    animation: ch-bc-float 11s ease-in-out infinite;
+    animation-delay: 0.8s;
+  }
+  .ch-banner-circles .ch-bc.c7 {
+    width: 1.6rem; height: 1.6rem;
+    right: 12%; top: 42%;
+    background: rgba(255,255,255,0.85);
+    animation: ch-bc-blink 3s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  @keyframes ch-bc-float {
+    0%, 100% { transform: translate(0, 0); }
+    33%      { transform: translate(0.6rem, -1.6rem); }
+    66%      { transform: translate(-0.4rem, 1rem); }
+  }
+  @keyframes ch-bc-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50%      { transform: scale(1.18); opacity: 1; }
+  }
+  @keyframes ch-bc-blink {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 1; }
+  }
+  /* Keep manifesto content/SVG above the decorative circles */
+  .banner-cta[data-v-f377522f] .base-title[data-v-f377522f],
+  .banner-cta[data-v-f377522f] .base-heading[data-v-f377522f],
+  .banner-cta[data-v-f377522f] .buttons[data-v-f377522f],
+  .banner-cta[data-v-f377522f] .banner-cta-svg[data-v-f377522f] {
+    position: relative;
+    z-index: 2;
+  }
+
   /* Manifesto banner-cta decorative SVG lines on the right: brand orange, bolder, glowing */
   .banner-cta[data-v-f377522f] .banner-cta-svg[data-v-f377522f] {
     color: var(--brand-orange) !important;
@@ -282,6 +369,26 @@ window.addEventListener('unhandledrejection', function(e) {
         '</svg>';
       // Insert as the first child so it sits behind .container/.content (which have z-index:1)
       sec.insertBefore(box, sec.firstChild);
+    }
+  }
+
+  function paintBannerCircles(root) {
+    var conts = (root || document).querySelectorAll('.banner-cta[data-v-f377522f] .container[data-v-f377522f]');
+    for (var i = 0; i < conts.length; i++) {
+      var c = conts[i];
+      if (c.querySelector('.ch-banner-circles')) continue;
+      var box = document.createElement('div');
+      box.className = 'ch-banner-circles';
+      box.setAttribute('aria-hidden', 'true');
+      box.innerHTML =
+        '<div class="ch-bc c1"></div>' +
+        '<div class="ch-bc c2"></div>' +
+        '<div class="ch-bc c3"></div>' +
+        '<div class="ch-bc c4"></div>' +
+        '<div class="ch-bc c5"></div>' +
+        '<div class="ch-bc c6"></div>' +
+        '<div class="ch-bc c7"></div>';
+      c.insertBefore(box, c.firstChild);
     }
   }
 
@@ -647,6 +754,7 @@ window.addEventListener('unhandledrejection', function(e) {
     replaceTextNodes(document.body);
     rebrandIntro(document);
     paintShowroomCircles(document);
+    paintBannerCircles(document);
     if (document.title && document.title.indexOf('Fluid Glass') !== -1) {
       document.title = 'Samnel — Pursue innovation · Pursue health';
     }
