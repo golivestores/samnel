@@ -55,9 +55,19 @@
   .banner-cta[data-v-f377522f] .banner-cta-svg[data-v-f377522f] {
     transform: translate(1200px, -50%) !important;
   }
-  /* Push the left text block (title + heading + buttons) down by 100px */
-  .banner-cta[data-v-f377522f] .base-title[data-v-f377522f] {
-    margin-top: 100px !important;
+  /* Push the left text block (title + heading + buttons) down by 100px (desktop only —
+     mobile keeps content vertically centered) */
+  @media (min-width: 601px) {
+    .banner-cta[data-v-f377522f] .base-title[data-v-f377522f] {
+      margin-top: 100px !important;
+    }
+  }
+  /* Mobile: restore some side padding so text isn't flush against viewport edges */
+  @media (max-width: 600px) {
+    .banner-cta[data-v-f377522f] .container[data-v-f377522f] {
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
+    }
   }
 
   /* Animated orange circles on the right side of the manifesto banner */
