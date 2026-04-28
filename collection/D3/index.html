@@ -233,9 +233,11 @@
     -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1523 254'%3E%3Ctext x='761' y='220' text-anchor='middle' font-family='Georgia, Times, serif' font-style='italic' font-weight='700' font-size='320' fill='black'%3ESamnel%3C/text%3E%3C/svg%3E") !important;
     mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1523 254'%3E%3Ctext x='761' y='220' text-anchor='middle' font-family='Georgia, Times, serif' font-style='italic' font-weight='700' font-size='320' fill='black'%3ESamnel%3C/text%3E%3C/svg%3E") !important;
   }
-  /* Loader/intro splash: replace "Fluid Glass" wordmark with "Samnel" in brand blue */
-  .intro[data-v-fc7c0bb1] .wordmark-svg { display: none !important; }
-  .intro[data-v-fc7c0bb1] .brandmark-svg path { fill: var(--brand-blue) !important; }
+  /* Loader/intro splash: hide BOTH the wordmark SVG and the hexagon brandmark,
+     and show only the "Samnel" italic wordmark text. */
+  .intro[data-v-fc7c0bb1] .wordmark-svg,
+  .intro[data-v-fc7c0bb1] .brandmark-svg,
+  .intro[data-v-fc7c0bb1] .brandmark { display: none !important; }
   .intro[data-v-fc7c0bb1] .ch-intro-samnel {
     font-family: Georgia, 'Times New Roman', serif;
     font-style: italic;
@@ -245,9 +247,23 @@
     color: var(--brand-blue);
     letter-spacing: -.02em;
     height: 4rem;
-    margin-left: 1.5rem;
+    margin-left: 0 !important;
     display: inline-flex;
     align-items: center;
+  }
+  /* Footer small logo (hexagon + wordmark) — hide the hexagon brandmark
+     and replace the wordmark text path with "Samnel" italic. */
+  .logo[data-v-b5a28948] .brandmark-svg { display: none !important; }
+  .logo[data-v-b5a28948] .wordmark-svg { display: none !important; }
+  .logo[data-v-b5a28948]::after {
+    content: 'Samnel';
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: currentColor;
+    letter-spacing: -.02em;
+    line-height: 1;
   }
   /* Product Collection: 4 staggered blocks -> 2 blocks side-by-side */
   .product-collection[data-v-85542e5f] .blocks[data-v-85542e5f] > .block[data-v-85542e5f]:nth-child(3),
