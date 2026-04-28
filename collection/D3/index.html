@@ -34,18 +34,21 @@
     padding: 18% !important;
     box-sizing: border-box !important;
   }
-  /* Manifesto banner-cta: full-width + reduced height (no cream margin, less inner padding) */
+  /* Manifesto banner-cta: full-width + reduced height */
   .banner-cta[data-v-f377522f] { margin: 0 !important; }
   .banner-cta[data-v-f377522f] .container[data-v-f377522f] {
     margin: 0 !important;
     border: none !important;
-    padding-top: 8rem !important;
-    padding-bottom: 8rem !important;
+    padding-top: 4rem !important;
+    padding-bottom: 0 !important;
   }
-  /* Hide the left "L" path that was overlapping the heading text.
-     Keep the right-side decorative lines (the second path). */
-  .banner-cta[data-v-f377522f] .banner-cta-svg[data-v-f377522f] path:first-of-type {
-    display: none !important;
+  /* Pull the bottom of the section up so it sits ~300px tighter against next section */
+  .banner-cta[data-v-f377522f] {
+    margin-bottom: -200px !important;
+  }
+  /* Move the orange decorative lines (both paths) 700px to the right */
+  .banner-cta[data-v-f377522f] .banner-cta-svg[data-v-f377522f] {
+    transform: translate(700px, -50%) !important;
   }
 
   /* Animated orange circles on the right side of the manifesto banner */
