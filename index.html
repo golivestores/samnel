@@ -381,23 +381,11 @@
     height: 100%;
     fill: currentcolor;
   }
-  /* === Decorative circle accents (fixed background, behind content) === */
-  .ch-circles {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-    pointer-events: none;
-    overflow: hidden;
-    mix-blend-mode: multiply;
-    opacity: .55;
-  }
-  .ch-circles svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+  /* Decorative circle accents disabled site-wide (used to be a fixed-position
+     SVG layer with pink/orange/gold rings + dots floating over the hero and
+     every other section). User asked to remove all of them. */
+  .ch-circles,
+  .ch-section-circles { display: none !important; }
   /* Custom top header */
   .ch-header {
     position: fixed;
