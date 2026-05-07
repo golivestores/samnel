@@ -57,15 +57,16 @@
     margin: 0 !important;
     border: none !important;
   }
-  /* Desktop only — aggressive height compression. On mobile we keep normal padding
-     so the next section (team photo) doesn't bleed through behind the text. */
+  /* Restore the section to Nuxt's natural tall padding (18rem top/bottom on
+     desktop) so the video background has full vertical real estate. Drop the
+     previous -200px overlap with the next section. */
   @media (min-width: 601px) {
     .banner-cta[data-v-f377522f] .container[data-v-f377522f] {
-      padding-top: 4rem !important;
-      padding-bottom: 0 !important;
+      padding-top: 18rem !important;
+      padding-bottom: 18rem !important;
     }
     .banner-cta[data-v-f377522f] {
-      margin-bottom: -200px !important;
+      margin-bottom: 0 !important;
     }
   }
   /* Move the orange decorative lines (both paths) 1200px to the right */
