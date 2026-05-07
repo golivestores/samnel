@@ -23,7 +23,21 @@
     --color-cream: #FBF5EC;
     --color-taupe: #C9905A;
     --color-white: #ffffff;
+    /* Unify all non-logo type to Aeonik Pro: redirect Nuxt's Aeonik Mono var. */
+    --font-f-aeonik-mono: "Aeonik Pro";
   }
+  /* Force Aeonik Pro on every element except the brand logo wordmarks
+     (intro splash and footer use Georgia italic; ch-header logo already
+     uses Aeonik Pro). */
+  body, body * {
+    font-family: "Aeonik Pro", system-ui, sans-serif;
+  }
+  .ch-intro-samnel,
+  .logo[data-v-b5a28948]::after,
+  .ch-header .ch-logo {
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+  .ch-header .ch-logo { font-family: 'Aeonik Pro', Georgia, serif; }
   /* Hide original bottom HOME button + menu trigger */
   .nav[data-v-b5a28948] { display: none !important; }
   .header[data-v-46983abb] { display: none !important; }
@@ -167,21 +181,38 @@
     z-index: 2;
   }
 
-  /* Manifesto banner-cta decorative SVG lines on the right: brand orange, bolder, glowing */
+  /* Manifesto banner-cta: hide the orange decorative SVG lines and the orange
+     animated circles — the section now uses a video background instead. */
   .banner-cta[data-v-f377522f] .banner-cta-svg[data-v-f377522f] {
-    color: var(--brand-orange) !important;
-    filter: drop-shadow(0 0 14px rgba(242, 145, 60, .55));
+    display: none !important;
   }
-  .banner-cta[data-v-f377522f] .banner-cta-svg[data-v-f377522f] path {
-    stroke: var(--brand-orange) !important;
-    stroke-width: 6 !important;
-    stroke-linecap: round !important;
+  .banner-cta[data-v-f377522f] .ch-banner-circles {
+    display: none !important;
   }
-  /* Manifesto banner-cta ("Every great formula begins with understanding") -> brand blue */
+  /* Manifesto banner-cta ("Every great formula begins with understanding")
+     — full-bleed video background filling the section. */
   .banner-cta[data-v-f377522f] .container[data-v-f377522f] {
-    background: var(--brand-blue) !important;
-    border-color: var(--brand-blue) !important;
+    background: #000 !important;
+    border-color: transparent !important;
     color: #fff !important;
+    position: relative;
+    overflow: hidden;
+  }
+  .ch-banner-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .ch-banner-video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+    pointer-events: none;
   }
   .banner-cta[data-v-f377522f] .base-title[data-v-f377522f],
   .banner-cta[data-v-f377522f] .base-heading[data-v-f377522f] {
@@ -236,11 +267,22 @@
     -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1523 254'%3E%3Ctext x='761' y='220' text-anchor='middle' font-family='Georgia, Times, serif' font-style='italic' font-weight='700' font-size='320' fill='black'%3ESamnel%3C/text%3E%3C/svg%3E") !important;
     mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1523 254'%3E%3Ctext x='761' y='220' text-anchor='middle' font-family='Georgia, Times, serif' font-style='italic' font-weight='700' font-size='320' fill='black'%3ESamnel%3C/text%3E%3C/svg%3E") !important;
   }
-  /* Loader/intro splash: hide BOTH the wordmark SVG and the hexagon brandmark,
-     and show only the "Samnel" italic wordmark text. */
+  /* Loader/intro splash: hide ALL decorative elements (hexagon brandmark, wordmark
+     SVG, rotating cube, decorative circles, overlay). Show ONLY the plain "Samnel"
+     italic wordmark text on the cream background. */
   .intro[data-v-fc7c0bb1] .wordmark-svg,
   .intro[data-v-fc7c0bb1] .brandmark-svg,
-  .intro[data-v-fc7c0bb1] .brandmark { display: none !important; }
+  .intro[data-v-fc7c0bb1] .brandmark,
+  .intro[data-v-fc7c0bb1] .cube,
+  .intro[data-v-fc7c0bb1] .shape,
+  .intro[data-v-fc7c0bb1] .face,
+  .intro[data-v-fc7c0bb1] .overlay,
+  .intro[data-v-fc7c0bb1] .ch-circles,
+  .intro[data-v-fc7c0bb1] .ch-banner-circles,
+  .intro[data-v-fc7c0bb1] .ch-section-circles,
+  .intro[data-v-fc7c0bb1]::before,
+  .intro[data-v-fc7c0bb1]::after { display: none !important; }
+  .intro[data-v-fc7c0bb1] .logo[data-v-fc7c0bb1] { visibility: visible !important; }
   .intro[data-v-fc7c0bb1] .ch-intro-samnel {
     font-family: Georgia, 'Times New Roman', serif;
     font-style: italic;
@@ -365,14 +407,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 4rem;
-    background: rgba(242, 145, 60, 0.95);
+    background: rgba(199, 56, 125, 0.95);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
     color: #fff;
     z-index: 100;
     transform: translateY(0);
     transition: transform .45s cubic-bezier(.77,0,.175,1);
-    font-family: 'Aeonik Mono', system-ui, sans-serif;
+    font-family: 'Aeonik Pro', system-ui, sans-serif;
     border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   }
   .ch-header.is-hidden { transform: translateY(-100%); }
@@ -406,9 +448,10 @@
   }
   .ch-header .ch-nav a {
     color: #fff;
+    font-family: 'Aeonik Pro', system-ui, sans-serif;
     font-size: 1.2rem;
     letter-spacing: .08em;
-    font-weight: 500;
+    font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
     opacity: .82;
@@ -555,23 +598,27 @@ window.addEventListener('unhandledrejection', function(e) {
   }
 
   function paintBannerCircles(root) {
+    // Replaced: section now uses a video background. We inject a <video>
+    // element + dark overlay into each .banner-cta container so the manifesto
+    // text sits readably on top of the looping clip.
     var conts = (root || document).querySelectorAll('.banner-cta[data-v-f377522f] .container[data-v-f377522f]');
     for (var i = 0; i < conts.length; i++) {
       var c = conts[i];
-      if (c.querySelector('.ch-banner-circles')) continue;
-      var box = document.createElement('div');
-      box.className = 'ch-banner-circles';
-      box.setAttribute('aria-hidden', 'true');
-      box.innerHTML =
-        '<div class="ch-bc c1"></div>' +
-        '<div class="ch-bc c2"></div>' +
-        '<div class="ch-bc c3"></div>' +
-        '<div class="ch-bc c4"></div>' +
-        '<div class="ch-bc c5"></div>' +
-        '<div class="ch-bc c6"></div>' +
-        '<div class="ch-bc c7"></div>' +
-        '<div class="ch-bc c8"></div>';
-      c.insertBefore(box, c.firstChild);
+      if (c.querySelector('.ch-banner-video')) continue;
+      var v = document.createElement('video');
+      v.className = 'ch-banner-video';
+      v.setAttribute('autoplay', '');
+      v.setAttribute('muted', '');
+      v.setAttribute('loop', '');
+      v.setAttribute('playsinline', '');
+      v.setAttribute('aria-hidden', 'true');
+      v.muted = true;
+      v.src = 'https://player.vimeo.com/progressive_redirect/playback/1158699381/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&signature=b907eb7908075d2cf4252cadd3ef8a58c0a12f21affd46d71189d3a6d310d272';
+      var ov = document.createElement('div');
+      ov.className = 'ch-banner-video-overlay';
+      ov.setAttribute('aria-hidden', 'true');
+      c.insertBefore(ov, c.firstChild);
+      c.insertBefore(v, c.firstChild);
     }
   }
 
